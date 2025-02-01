@@ -8,10 +8,13 @@ services:
       MYSQL_DATABASE: concordia_db
       MYSQL_USER: username
       MYSQL_PASSWORD: password
+      SPRING_SECURITY_ENABLED: false
     ports:
       - "3306:3306"
     volumes:
       - mysql-data:/var/lib/mysql
+    networks:
+      - concordia-network
 
   springboot-app:
     build:
@@ -28,5 +31,10 @@ services:
       SPRING_DATASOURCE_PASSWORD: password
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
       SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.MySQLDialect
+    networks:
+      - concordia-network
 volumes:
   mysql-data:
+
+networks:
+  concordia-network:
